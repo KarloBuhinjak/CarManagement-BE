@@ -1,0 +1,62 @@
+{
+  "contractName": "CarMileage",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "vin",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "mileage",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "mechanic",
+          "type": "address"
+        }
+      ],
+      "name": "MileageAdded",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        { "internalType": "string", "name": "vin", "type": "string" },
+        { "internalType": "uint256", "name": "mileage", "type": "uint256" }
+      ],
+      "name": "addMileage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "string", "name": "vin", "type": "string" }],
+      "name": "getRecords",
+      "outputs": [
+        {
+          "components": [
+            { "internalType": "uint256", "name": "mileage", "type": "uint256" },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            { "internalType": "address", "name": "mechanic", "type": "address" }
+          ],
+          "internalType": "struct CarMileage.Record[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
