@@ -6,7 +6,11 @@ const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ["user", "admin"], default: "user" },
+    role: {
+      type: String,
+      enum: ["user", "admin", "superadmin"],
+      default: "user",
+    },
   },
   { timestamps: true },
 );
@@ -17,7 +21,13 @@ const seed = async () => {
   await mongoose.connect(process.env.MONGO_URI);
 
   const users = [
+    {
+      email: "superadmin@test.com",
+      password: "super123",
+      role: "superadmin",
+    },
     { email: "admin@test.com", password: "admin123", role: "admin" },
+    { email: "mechanic2@test.com", password: "mechanic123", role: "admin" },
     { email: "user@test.com", password: "user123", role: "user" },
   ];
 

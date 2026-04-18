@@ -1,0 +1,21 @@
+import { Router } from "express";
+import {
+  createMechanicHandler,
+  listMechanicsHandler,
+} from "./superadmin.controller";
+import { protect, requireRole } from "../../middleware/auth.middleware";
+import { validate } from "../../middleware/validate.middleware";
+import { createMechanicSchema } from "./superadmin.validation";
+
+const router = Router();
+
+router.use(protect, requireRole(["superadmin"]));
+
+router.get("/mechanics", listMechanicsHandler);
+router.post(
+  "/mechanics",
+  validate(createMechanicSchema),
+  createMechanicHandler,
+);
+
+export default router;

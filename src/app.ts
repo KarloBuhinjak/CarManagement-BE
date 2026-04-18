@@ -3,6 +3,7 @@ import { requestLogger } from "./middleware/requestLogger.middleware";
 import { errorHandler } from "./middleware/error.middleware";
 import authRoutes from "./modules/auth/auth.routes";
 import carRegistryRoutes from "./modules/carRegistry/carRegistry.routes";
+import superadminRoutes from "./modules/superadmin/superadmin.routes";
 import cors from "cors";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(requestLogger);
 
 app.use("/auth", authRoutes);
 app.use("/cars", carRegistryRoutes);
+app.use("/admin", superadminRoutes);
 
 app.use(errorHandler);
 
