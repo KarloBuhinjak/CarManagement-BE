@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createMechanicHandler,
   listMechanicsHandler,
+  removeMechanicHandler,
 } from "./superadmin.controller";
 import { protect, requireRole } from "../../middleware/auth.middleware";
 import { validate } from "../../middleware/validate.middleware";
@@ -17,5 +18,6 @@ router.post(
   validate(createMechanicSchema),
   createMechanicHandler,
 );
+router.delete("/mechanics/:id", removeMechanicHandler);
 
 export default router;

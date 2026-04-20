@@ -18,6 +18,24 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin", "superadmin"],
       default: "user",
     },
+
+    walletAddress: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      match: /^0x[a-f0-9]{40}$/,
+      sparse: true,
+    },
+
+    passwordSetupToken: {
+      type: String,
+      sparse: true,
+      index: true,
+    },
+
+    passwordSetupExpiresAt: {
+      type: Date,
+    },
   },
   { timestamps: true },
 );

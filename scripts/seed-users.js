@@ -11,6 +11,13 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin", "superadmin"],
       default: "user",
     },
+    walletAddress: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      match: /^0x[a-f0-9]{40}$/,
+      sparse: true,
+    },
   },
   { timestamps: true },
 );
@@ -26,19 +33,40 @@ const seed = async () => {
       password: "super123",
       role: "superadmin",
     },
-    { email: "admin@test.com", password: "admin123", role: "admin" },
-    { email: "mechanic2@test.com", password: "mechanic123", role: "admin" },
+    {
+      email: "admin@test.com",
+      password: "admin123",
+      role: "admin",
+      walletAddress: "0xa0Ba904A8b558772555e071B4016a95A48dEA981",
+    },
+    {
+      email: "mechanic2@test.com",
+      password: "mechanic123",
+      role: "admin",
+    },
     { email: "user@test.com", password: "user123", role: "user" },
   ];
 
   for (const u of users) {
     const hashed = await bcrypt.hash(u.password, 10);
+    const update = {
+      email: u.email,
+      password: hashed,
+      role: u.role,
+    };
+    if (u.walletAddress) {
+      update.walletAddress = u.walletAddress.toLowerCase();
+    }
     await User.updateOne(
       { email: u.email },
-      { $set: { email: u.email, password: hashed, role: u.role } },
+      { $set: update },
       { upsert: true },
     );
-    console.log(`Upserted ${u.role}: ${u.email} / ${u.password}`);
+    console.log(
+      `Upserted ${u.role}: ${u.email} / ${u.password}${
+        u.walletAddress ? ` · ${u.walletAddress}` : ""
+      }`,
+    );
   }
 
   await mongoose.disconnect();

@@ -2,7 +2,9 @@ import { z } from "zod";
 
 export const createMechanicSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters",
-  }),
+  walletAddress: z
+    .string()
+    .regex(/^0x[a-fA-F0-9]{40}$/, {
+      message: "Wallet address must be a valid 0x… Ethereum address",
+    }),
 });
