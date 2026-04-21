@@ -32,17 +32,7 @@ const seed = async () => {
       email: "superadmin@test.com",
       password: "super123",
       role: "superadmin",
-    },
-    {
-      email: "admin@test.com",
-      password: "admin123",
-      role: "admin",
       walletAddress: "0xa0Ba904A8b558772555e071B4016a95A48dEA981",
-    },
-    {
-      email: "mechanic2@test.com",
-      password: "mechanic123",
-      role: "admin",
     },
     { email: "user@test.com", password: "user123", role: "user" },
   ];
